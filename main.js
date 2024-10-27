@@ -34,13 +34,11 @@ createApp({
         function updateImage(variantImage){
             image.value = variantImage
         }
-        function toggleInStock() {
-            if (inventory.value === 15) {   
-                inventory.value = 5
-            } else if (inventory.value === 5) {
-                inventory.value = 0
+        function toggleInStock() { 
+            if (inStock.value === true) {   
+                inStock.value = false
             } else {
-                inventory.value = 15
+                inStock.value = true
             }
         }
         

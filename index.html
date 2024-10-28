@@ -15,11 +15,14 @@
         <div class="nav-bar"></div>
         <div class="cart">Cart({{ cart }})</div>
         <product-display :premium="premium" :cart="cart" @add-to-cart="updateCart" @remove-from-cart="removeFromCart"></product-display>
+        <review-form @review-submitted="addReview"></review-form>
+        <review-list :reviews="reviews"></review-list>
     </div>
     
     <!-- Import Js -->
-     
     <script src="./components/ProductDisplay.js"></script>
+    <script src="./components/ReviewForm.js"></script>
+    <script src="./components/ReviewList.js"></script>
     <script src="./main.js"></script>
 </body>
 

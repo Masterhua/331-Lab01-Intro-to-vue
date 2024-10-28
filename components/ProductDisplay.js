@@ -22,16 +22,17 @@ const productDisplay = {
                     class="color-circle" :style="{backgroundColor: variant.color}">
    
                 </div>
-                <button class="button" :disabled='!inStock' @click="addToCart" :class="{disabledButton: !inStock}">Add To
-                    Cart</button>
+                <button class="button" :disabled='!inStock' @click="addToCart" :class="{disabledButton: !inStock}">Add To Cart</button>
+                <button class="button" @click="removeFromCart">Remove From Cart</button>
             </div>
         </div>
        
     `,
     props: {
-        premium: Boolean
+        premium: Boolean,
+        cart: Object
     },
-    setup(props) {
+    setup(props, { emit }) {
         const shipping = computed(()=>{
             if (props.premium){
                 return 'Free'
@@ -66,8 +67,19 @@ const productDisplay = {
             return variants.value[selectedVariant.value].quantity
         })
         function addToCart() {
-            cart.value += 1
+            const selectedId = variants.value[selectedVariant.value].id;
+            if (selectedId) {
+                emit('add-to-cart', selectedId);
+            }
         }
+
+        function removeFromCart() {
+            const selectedId = variants.value[selectedVariant.value].id;
+            if (selectedId) {
+                emit('remove-from-cart', selectedId);
+            }
+        }
+
         const title = computed(() => {
             return brand.value + ' ' + product.value
         })
@@ -82,6 +94,7 @@ const productDisplay = {
             details,
             variants,
             addToCart,
+            removeFromCart,
             updateImage,
             updateVariant,
             shipping
